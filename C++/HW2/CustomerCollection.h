@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class CustomerCollection : public Customer
+class CustomerCollection
 {
     public:
-        void addMovie(); // Add a customer to the collection
+        void addCustomer(); // Add a customer to the collection
         void editCustomer(); // Edit customer information if customer is in the collection
         void deleteCustomer(); // Delete a specific customer
         void findCustomer(); // Search for a specific customer
