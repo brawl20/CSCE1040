@@ -30,21 +30,18 @@ void Menu()
     cin >> userChoice;
     while (userChoice != 3)
     {
+        cin.ignore();
         switch (userChoice)
         {
         case 1:
             cout << "Please enter your Customer ID:\n";
             break;
         case 2:
+            inSystem = false;
             cout << "Please enter your name:\n";
-            cin.ignore();
             cin.getline(userName, 40);
+            fout.open("GreenBox-Data.txt", ios::app);
             fin.open("GreenBox-Data.txt");
-            if (fin.fail())
-            {
-                fout.open("GreenBox-Data.txt", ios_base::app);
-                fin.open("GreenBox-Data.txt");
-            }
             
             while(!fin.eof())
             {
@@ -53,14 +50,20 @@ void Menu()
                 {
                     inSystem = true;
                     cout << "This customer is already in our system.\n";
-                    break;
+                    fin.close();
+                    fout.close();
                 }
             }
-            if (inSystem == false)
+            if (!inSystem)
             {
-                fout << "Customer Name:\n" << userName << "\t";
+                fout << "Customer Name:\n" << userName << "\n";
+                cout << tempHolder;
+                cout << userName << endl;
+                fout.close();
+                fin.close();
             }
             break;
+
         default:
             cout << "Sorry, the choice you made was invalid. Please try again.\n";
             break;
@@ -74,5 +77,6 @@ void Menu()
 int main()
 {   
     Menu();
+
     return 0;
 }
