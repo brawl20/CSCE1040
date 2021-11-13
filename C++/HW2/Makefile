@@ -16,7 +16,7 @@ Loan.o: Loan.cpp Loan.h
 LoanCollection.o: LoanCollection.cpp LoanCollection.h
 	g++ -c LoanCollection.cpp
 
-Movie.o: g++ -c Movie.cpp Movie.h
+Movie.o: Movie.cpp Movie.h
 	g++ -c Movie.cpp
 
 MovieCollection.o: MovieCollection.cpp MovieCollection.h
