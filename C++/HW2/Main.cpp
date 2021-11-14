@@ -7,14 +7,16 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <iostream>
 #include <vector>
 
 using namespace std;
 
-void Menu()
+void Menu(CustomerCollection customerDatabase)
 {
     //Variables
+    long long unsigned int creditCardNum;
+    int expirationDateMonth;
+    int expirationDateYear;
     int userChoice;
     char userName[40];
     ofstream fout;
@@ -37,31 +39,8 @@ void Menu()
             cout << "Please enter your Customer ID:\n";
             break;
         case 2:
-            inSystem = false;
-            cout << "Please enter your name:\n";
-            cin.getline(userName, 40);
-            fout.open("GreenBox-Data.txt", ios::app);
-            fin.open("GreenBox-Data.txt");
-            
-            while(!fin.eof())
-            {
-                getline(fin, tempHolder);
-                if (tempHolder == userName)
-                {
-                    inSystem = true;
-                    cout << "This customer is already in our system.\n";
-                    fin.close();
-                    fout.close();
-                }
-            }
-            if (!inSystem)
-            {
-                fout << "Customer Name:\n" << userName << "\n";
-                cout << tempHolder;
-                cout << userName << endl;
-                fout.close();
-                fin.close();
-            }
+
+            customerDatabase.addCustomer();
             break;
 
         default:
@@ -76,7 +55,8 @@ void Menu()
 
 int main()
 {   
-    Menu();
-
+    CustomerCollection customerDatabase;
+    Menu(customerDatabase);
+    customerDatabase.printCollectionEntries();
     return 0;
 }
