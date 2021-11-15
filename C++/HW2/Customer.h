@@ -19,7 +19,7 @@ class Customer
 
     //Accessors
     int GetCustomerID();
-    int GetCreditCardNum();
+    long long unsigned int GetCreditCardNum();
     string GetCustomerName();
     string GetCreditCardExpDate();
     int GetCreditCardValKey();
@@ -27,7 +27,7 @@ class Customer
 
     //Mutators
     void SetCustomerID(int customerID);
-    void SetCreditCardNum(int creditCardNum);
+    void SetCreditCardNum(long long unsigned int creditCardNum);
     void SetCustomerName(string customerName);
     void SetCreditCardExpDate(string creditCardExpDate);
     void SetCreditCardValKey(int creditCardValKey);
@@ -35,7 +35,7 @@ class Customer
 
     private:
     int customerID;
-    int creditCardNum;
+    long long unsigned int creditCardNum;
     string customerName;
     string creditCardExpDate;
     int creditCardValKey;

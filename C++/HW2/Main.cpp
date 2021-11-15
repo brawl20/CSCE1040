@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void Menu(CustomerCollection customerDatabase)
+void Menu(CustomerCollection &customerDatabase)
 {
     //Variables
     long long unsigned int creditCardNum;
@@ -57,6 +57,6 @@ int main()
 {   
     CustomerCollection customerDatabase;
     Menu(customerDatabase);
-    customerDatabase.printCollectionEntries();
+    //customerDatabase.printCollectionEntries();
     return 0;
 }

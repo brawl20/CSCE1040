@@ -8,23 +8,23 @@
 
 using namespace std;
 
+int customerIndex = 0;
 
 void CustomerCollection::addCustomer()
 {
     //Variables
-    int customerIndex = 0;
     long long unsigned int creditCardNum;
     int expirationDateMonth;
     int expirationDateYear;
     int userChoice;
-    char userName[40];
+    string userName;
     ofstream fout;
     ifstream fin;
     string tempHolder;
     bool inSystem = false;
 
     cout << "Please enter your name:\n";
-    cin.getline(userName, 40);
+    getline(cin,userName);
     fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
 
@@ -35,14 +35,29 @@ void CustomerCollection::addCustomer()
         getline(fin, tempHolder);
         if (tempHolder == "Customer Name:")
         {
-            fin.ignore();
             getline(fin,tempHolder);
             Customers.push_back(Customer());
             Customers.back().SetCustomerName(tempHolder);
+            getline(fin,tempHolder);
             ++customerIndex;
+            if (tempHolder == "Credit Card Number:")
+            {
+                long long unsigned int cardNumber = 0;
+                getline(fin,tempHolder);
+                cardNumber = stoll(tempHolder, nullptr, 10);
+                cout << cardNumber << endl;
+                Customers.back().SetCreditCardNum(cardNumber);
+            }
+            getline(fin,tempHolder);
+            if (tempHolder == "Expiration Date:")
+            {
+                getline(fin,tempHolder);
+                Customers.back().SetCreditCardExpDate(tempHolder);
+            }
         }
-        fin.close();
     }
+    cout << "Currently have " << Customers.size() << " Customers\n";
+    fin.close();
 
     fin.open("GreenBox-Data.txt");
     while(!fin.eof())
@@ -96,9 +111,10 @@ void CustomerCollection::addCustomer()
 //void printCustomerInfo(); 
 void CustomerCollection::printCollectionEntries()
 {
-    for(int i = 0; i <= Customers.size(); i++)
+    cout << Customers.size() << endl;
+    for(int i = 0; i < customerIndex; i++)
     {
-        cout << Customers[i].GetCustomerName() << endl;
+        cout << Customers[i].GetCustomerName() << "\nCard Numbers:\n" << Customers[i].GetCreditCardNum() << endl;
     }
 }
 //void moviesLoaned(); 
