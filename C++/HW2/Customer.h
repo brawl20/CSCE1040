@@ -4,6 +4,7 @@
 #include "Movie.h"
 #include <string>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ class Customer
     void SetCustomerName(string customerName);
     void SetCreditCardExpDate(string creditCardExpDate);
     void SetCreditCardValKey(int creditCardValKey);
-    void SetActiveMovies(Movie activeMovies[]);
+    void SetActiveMovies(Movie activeMovie);
 
     private:
     int customerID;
@@ -39,7 +40,7 @@ class Customer
     string customerName;
     string creditCardExpDate;
     int creditCardValKey;
-    Movie activeMovies[2];
+    vector<Movie> activeMovies;
 
 };
 

@@ -27,9 +27,9 @@ class Movie
 
     //Mutators
     void SetmovieID(int movieID);
-    void SetmovieTitle(char movieTitle);
+    void SetmovieTitle(string movieTitle);
     void SetreleaseDate(string releaseDate);
-    void Setrating(char rating[]);
+    void Setrating(string rating);
     void Setduration(string duration);
     void SetrentalCost(string rentalCost);
     void SetreplacementCost(string replacementCost);

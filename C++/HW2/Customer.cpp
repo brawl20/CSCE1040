@@ -69,4 +69,14 @@ using namespace std;
         Customer::creditCardExpDate = creditCardExpDate;
     }
     // void Customer::SetCreditCardValKey(int creditCardValKey);
-    // void Customer::SetActiveMovies(Movie activeMovies[]);
+    void Customer::SetActiveMovies(Movie activeMovie)
+    {
+        if(activeMovies.size() != 2)
+        {
+            activeMovies.push_back(activeMovie);
+        }
+        else
+        {
+            cout << "This customer already has two movies checked out\n";
+        }
+    }
