@@ -16,13 +16,13 @@ using namespace std;
         creditCardValKey = 000;
         for(int i = 0; i < 2; i++)
         {
-            activeMovies[i] = Movie();
+            activeMovies.push_back(Movie());
         }
 
     }
     
     //Parameterized Constructor
-    Customer::Customer(int customerID, int creditCardNum, char* customerName, string creditCardExpDate, int creditCardValKey, Movie* activeMovies)
+    Customer::Customer(int customerID, int creditCardNum, string customerName, string creditCardExpDate, int creditCardValKey, Movie* activeMovies)
     {
         Customer::customerID = customerID;
         Customer::creditCardNum = creditCardNum;
@@ -36,24 +36,42 @@ using namespace std;
     }
 
     //Accessors
-    // int Customer::GetCustomerID();
+    int Customer::GetCustomerID()
+    {
+        return customerID;
+    }
+
     long long unsigned int Customer::GetCreditCardNum()
     {
         return creditCardNum;
     }
+
     string Customer::GetCustomerName()
     {
        return customerName;
     }
+
     string Customer::GetCreditCardExpDate()
     {
         return creditCardExpDate;
     }
-    // int Customer::GetCreditCardValKey();
-    // Movie Customer::GetActiveMovies();
+
+    int Customer::GetCreditCardValKey()
+    {
+        return creditCardValKey;
+    }
+    
+    Movie Customer::GetActiveMovies(int index)
+    {
+        return activeMovies[index];
+    }
 
     //Mutators
-    // void Customer::SetCustomerID(int customerID);
+    void Customer::SetCustomerID(int customerID)
+    {
+        Customer::customerID = customerID;
+    }
+
     void Customer::SetCreditCardNum(long long unsigned int creditCardNum)
     {
         Customer::creditCardNum = creditCardNum;
@@ -68,7 +86,12 @@ using namespace std;
     {
         Customer::creditCardExpDate = creditCardExpDate;
     }
-    // void Customer::SetCreditCardValKey(int creditCardValKey);
+
+    void Customer::SetCreditCardValKey(int creditCardValKey)
+    {
+        Customer::creditCardValKey = creditCardValKey;
+    }
+
     void Customer::SetActiveMovies(Movie activeMovie)
     {
         if(activeMovies.size() != 2)

@@ -11,6 +11,35 @@
 
 using namespace std;
 
+bool checkIDNumber(CustomerCollection &customerDatabase, int userID, int &customerIndex)
+{
+    ifstream fin;
+    string tempHolder;
+    Movie tempMovie;
+    int tempInt;
+    bool returnValue = false;
+
+    fin.open("GreenBox-Data.txt"); 
+
+    while(!fin.eof())
+    {
+        getline(fin,tempHolder);
+        if(tempHolder == "Customer ID:")
+        {
+            ++customerIndex;
+            getline(fin,tempHolder);
+            tempInt = stoi(tempHolder);
+            if (tempInt == userID)
+            {
+                returnValue = true;
+                return returnValue;
+            }
+        }
+    }
+    return returnValue;
+}
+
+
 void Menu(CustomerCollection &customerDatabase)
 {
     //Variables
@@ -18,7 +47,9 @@ void Menu(CustomerCollection &customerDatabase)
     int expirationDateMonth;
     int expirationDateYear;
     int userChoice;
-    char userName[40];
+    int customerID;
+    int customerIndex = -1;
+    //char userName[40];
     ofstream fout;
     ifstream fin;
     string tempHolder;
@@ -29,6 +60,7 @@ void Menu(CustomerCollection &customerDatabase)
     cout << "Menu:" << endl;
     cout << "1) Returning Customer\n2) New Customer\n3) Exit\n";
 
+    
     cin >> userChoice;
     while (userChoice != 3)
     {
@@ -37,6 +69,30 @@ void Menu(CustomerCollection &customerDatabase)
         {
         case 1:
             cout << "Please enter your Customer ID:\n";
+            cin >> customerID;
+            customerDatabase.loadDataBase();
+            if (checkIDNumber(customerDatabase, customerID, customerIndex))
+            {
+                //Print a menu for a user that is in the system
+                Customer tempCustomer = customerDatabase.findCustomer(customerIndex);
+                cout << "Welcome back " << tempCustomer.GetCustomerName() << "!\n";
+                cout << "What would you like to do?\n";
+                cout << "1) Loan a movie\n2) Edit information\n3) View all current loans\n4) Delete account\n";
+                cin >> userChoice;
+                switch (userChoice)
+                {
+                case 1:
+                    
+                    break;
+                
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                cout << "There does not seem to be a customer with that ID number in the system. Please register or try again.\n";
+            }
             break;
         case 2:
 

@@ -14,13 +14,13 @@ class Movie
     Movie();
     
     //Parameterized Constructor
-    Movie(int movieID, char movieTitle, string releaseDate, char rating, string duration, string rentalCost, string replacementCost);
+    Movie(int movieID, string movieTitle, string releaseDate, string rating, string duration, string rentalCost, string replacementCost);
 
     //Accessors
     int GetmovieID();
-    char GetmovieTitle();
+    string GetmovieTitle();
     string GetreleaseDate();
-    char Getrating();
+    string Getrating();
     string Getduration();
     string GetrentalCost();
     string GetreplacementCost();
@@ -36,9 +36,9 @@ class Movie
 
     private:
     int movieID;
-    char movieTitle[40];
+    string movieTitle;
     string releaseDate;
-    char rating[20];
+    string rating;
     string duration;
     string rentalCost;
     string replacementCost;

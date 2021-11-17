@@ -4,7 +4,7 @@
 #include "Movie.h"
 #include <string>
 #include <iostream>
-#include <ctime>
+#include <vector>
 
 using namespace std;
 
@@ -16,7 +16,7 @@ class Customer
     Customer();
     
     //Parameterized Constructor
-    Customer(int customerID, int creditCardNum, char* customerName, string creditCardExpDate, int creditCardValKey, Movie* activeMovies);
+    Customer(int customerID, int creditCardNum, string customerName, string creditCardExpDate, int creditCardValKey, Movie* activeMovies);
 
     //Accessors
     int GetCustomerID();
@@ -24,7 +24,7 @@ class Customer
     string GetCustomerName();
     string GetCreditCardExpDate();
     int GetCreditCardValKey();
-    Movie GetActiveMovies();
+    Movie GetActiveMovies(int index);
 
     //Mutators
     void SetCustomerID(int customerID);

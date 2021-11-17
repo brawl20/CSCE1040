@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void loadDataBase(vector<Customer> Customers)
+void CustomerCollection::loadDataBase()
 {
     ofstream fout;
     ifstream fin;
@@ -25,13 +25,18 @@ void loadDataBase(vector<Customer> Customers)
     while(!fin.eof())
     {
         getline(fin, tempHolder);
-        if (tempHolder == "Customer Name:")
+        if (tempHolder == "Customer ID:")
         {
             getline(fin,tempHolder);
             Customers.push_back(Customer());
-            Customers.back().SetCustomerName(tempHolder);
+            Customers.back().SetCustomerID(stoi(tempHolder));
             getline(fin,tempHolder);
-            ++customerIndex;
+            // ++customerIndex;
+            if (tempHolder == "Customer Name:")
+            {
+                getline(fin,tempHolder);
+                Customers.back().SetCustomerName(tempHolder);
+            }
             if (tempHolder == "Credit Card Number:")
             {
                 long long unsigned int cardNumber = 0;
@@ -109,7 +114,6 @@ void loadDataBase(vector<Customer> Customers)
 }
 
 
-int customerIndex = 0;
 
 void CustomerCollection::addCustomer()
 {
@@ -119,22 +123,21 @@ void CustomerCollection::addCustomer()
     int expirationDateYear;
     int userChoice;
     int cardValKey;
+    int randNum;
     string userName;
     ofstream fout;
     ifstream fin;
     string tempHolder;
     bool inSystem = false;
 
-    loadDataBase(Customers);
+    loadDataBase();
 
     cout << "Please enter your name:\n";
     getline(cin,userName);
     fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
-
     while(!fin.eof())
     {
-        
         getline(fin, tempHolder);
         if (tempHolder == userName)
         {
@@ -143,14 +146,14 @@ void CustomerCollection::addCustomer()
             fin.close();
             fout.close();
         }
-    }
         if (!inSystem)
         {
             Customers.push_back(Customer());
-
             //Create Customer ID
             srand(time(NULL));
-            Customers.back().SetCustomerID((rand() % 899999) + 100000);
+            randNum = (rand() % 899999) + 100000;
+            Customers.back().SetCustomerID(randNum);
+            fout << "Customer ID:\n" << randNum << endl;
 
             fout << "Customer Name:\n" << userName << "\n";
             Customers.back().SetCustomerName(userName);
@@ -186,21 +189,26 @@ void CustomerCollection::addCustomer()
             }while(cardValKey < 111 || cardValKey > 999);
             fout << "Validation Key:\n" << cardValKey << endl;
             fout << "Movies Loaned:" << endl << endl;
+            cout << "Your Customer ID is: " << randNum << endl;
             fout.close();
             fin.close();
         }
+    }
 }
-void editCustomer(int customerID)
-{
+// void editCustomer(int customerID)
+// {
 
-}
+// }
 //void deleteCustomer(); 
-//void findCustomer(); 
+Customer CustomerCollection::findCustomer(int customerIndex)
+{
+    return Customers[customerIndex];
+}
 //void printCustomerInfo(); 
 void CustomerCollection::printCollectionEntries()
 {
     cout << Customers.size() << endl;
-    for(int i = 0; i < customerIndex; i++)
+    for(int i = 0; i < Customers.size(); i++)
     {
         cout << Customers[i].GetCustomerName() << "\nCard Numbers:\n" << Customers[i].GetCreditCardNum() << endl;
     }
