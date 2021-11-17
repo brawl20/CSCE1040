@@ -19,13 +19,13 @@ using namespace std;
 
 void CustomerCollection::loadDataBase()
 {
-    //ofstream fout;
+    ofstream fout;
     ifstream fin;
     string tempHolder;
     int tempInt;
     Movie tempMovie;
 
-    //fout.open("GreenBox-Data.txt", ios::app);
+    fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
 
     // Check how many Customers are in the system
