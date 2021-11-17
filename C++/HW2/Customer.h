@@ -32,6 +32,7 @@ class Customer
     string GetCreditCardExpDate();
     int GetCreditCardValKey();
     Movie GetActiveMovies(int index);
+    int GetActiveMovieCount();
 
     //Mutators
     void SetCustomerID(int customerID);

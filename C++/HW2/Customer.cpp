@@ -69,6 +69,10 @@ using namespace std;
         return activeMovies[index];
     }
 
+    int Customer::GetActiveMovieCount()
+    {
+        return activeMovies.size();
+    }
     //Mutators
     void Customer::SetCustomerID(int customerID)
     {

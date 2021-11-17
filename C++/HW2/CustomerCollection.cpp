@@ -19,105 +19,89 @@ using namespace std;
 
 void CustomerCollection::loadDataBase()
 {
-    ofstream fout;
+    //ofstream fout;
     ifstream fin;
     string tempHolder;
-    Movie tempMovie;
     int tempInt;
+    Movie tempMovie;
 
-    fout.open("GreenBox-Data.txt", ios::app);
+    //fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
 
     // Check how many Customers are in the system
     while(!fin.eof())
     {
         getline(fin, tempHolder);
+        // cout << tempHolder << endl;
         if (tempHolder == "Customer ID:")
         {
             getline(fin,tempHolder);
             Customers.push_back(Customer());
             Customers.back().SetCustomerID(stoi(tempHolder));
-            getline(fin,tempHolder);
-            // ++customerIndex;
-            if (tempHolder == "Customer Name:")
-            {
-                getline(fin,tempHolder);
-                Customers.back().SetCustomerName(tempHolder);
-            }
-            getline(fin,tempHolder);
-            if (tempHolder == "Credit Card Number:")
-            {
-                long long unsigned int cardNumber = 0;
-                getline(fin,tempHolder);
-                cardNumber = stoll(tempHolder, nullptr, 10);
-                Customers.back().SetCreditCardNum(cardNumber);
-            }
-            getline(fin,tempHolder);
-            if (tempHolder == "Expiration Date:")
-            {
-                getline(fin,tempHolder);
-                Customers.back().SetCreditCardExpDate(tempHolder);
-            }
-            getline(fin,tempHolder);
-            if (tempHolder == "Validation Key:")
-            {
-                int valKey;
-                getline(fin,tempHolder);
-                valKey = stoi(tempHolder);
-                Customers.back().SetCreditCardValKey(valKey);
-            }
-            getline(fin,tempHolder);
-            if (tempHolder == "Movies Loaned:")
-            {
-                getline(fin, tempHolder);
-                if (tempHolder == "Movie ID:")
-                {
-                    getline(fin, tempHolder);
-                    tempInt = stoi(tempHolder);
-                    tempMovie.SetmovieID(tempInt);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Movie Title:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.SetmovieTitle(tempHolder);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Release Date:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.SetreleaseDate(tempHolder);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Rating:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.Setrating(tempHolder);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Duration:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.Setduration(tempHolder);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Rental Cost:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.SetrentalCost(tempHolder);
-                }
-                getline(fin, tempHolder);
-                if (tempHolder == "Replacement Cost:")
-                {
-                    getline(fin, tempHolder);
-                    tempMovie.SetreplacementCost(tempHolder);
-                }
-
-                Customers.back().SetActiveMovies(tempMovie);
-            }
         }
+        if (tempHolder == "Customer Name:")
+        {
+            getline(fin,tempHolder);
+            Customers.back().SetCustomerName(tempHolder);
+        }
+        if (tempHolder == "Credit Card Number:")
+        {
+            long long unsigned int cardNumber = 0;
+            getline(fin,tempHolder);
+            cardNumber = stoll(tempHolder, nullptr, 10);
+            Customers.back().SetCreditCardNum(cardNumber);
+        }
+        if (tempHolder == "Expiration Date:")
+        {
+            getline(fin,tempHolder);
+            Customers.back().SetCreditCardExpDate(tempHolder);
+        }
+        if (tempHolder == "Validation Key:")
+        {
+            int valKey;
+            getline(fin,tempHolder);
+            valKey = stoi(tempHolder);
+            Customers.back().SetCreditCardValKey(valKey);
+        }
+        if (tempHolder == "Movie ID:")
+        {
+            getline(fin, tempHolder);
+            tempInt = stoi(tempHolder);
+            tempMovie.SetmovieID(tempInt);
+        }
+        
+        if (tempHolder == "Movie Title:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.SetmovieTitle(tempHolder);
+        }
+        if (tempHolder == "Release Date:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.SetreleaseDate(tempHolder);
+        }
+        if (tempHolder == "Rating:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.Setrating(tempHolder);
+        }
+        if (tempHolder == "Duration:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.Setduration(tempHolder);
+        }
+        if (tempHolder == "Rental Cost:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.SetrentalCost(tempHolder);
+        }
+        if (tempHolder == "Replacement Cost:")
+        {
+            getline(fin, tempHolder);
+            tempMovie.SetreplacementCost(tempHolder);
+            Customers.back().SetActiveMovies(tempMovie);
+        } 
     }
-    fin.close();
 }
 
 
@@ -137,14 +121,13 @@ void CustomerCollection::addCustomer()
     string tempHolder;
     bool inSystem = false;
 
-    loadDataBase();
-
     cout << "\nPlease enter your name:\n";
     getline(cin,userName);
     fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
     while(!fin.eof())
     {
+        inSystem = false;
         getline(fin, tempHolder);
         if (tempHolder == userName)
         {
@@ -153,53 +136,53 @@ void CustomerCollection::addCustomer()
             fin.close();
             fout.close();
         }
-        if (!inSystem)
+    }
+    if (!inSystem)
+    {
+        Customers.push_back(Customer());
+        //Create Customer ID
+        srand(time(NULL));
+        randNum = (rand() % 899999) + 100000;
+        Customers.back().SetCustomerID(randNum);
+        fout << "Customer ID:\n" << randNum << endl;
+
+        fout << "Customer Name:\n" << userName << "\n";
+        Customers.back().SetCustomerName(userName);
+
+            
+        // Loop if card number is invalid
+        do
         {
-            Customers.push_back(Customer());
-            //Create Customer ID
-            srand(time(NULL));
-            randNum = (rand() % 899999) + 100000;
-            Customers.back().SetCustomerID(randNum);
-            fout << "Customer ID:\n" << randNum << endl;
+            cout << "What is your Credit Card Number? (12 digits)" << endl;
+            cin >> creditCardNum;
+        }while(creditCardNum < 111111111111 || creditCardNum > 999999999999);
+        fout << "Credit Card Number:\n" << creditCardNum << endl;
+            
+        // Loop if month isnt valid
+        do
+        {
+            cout << "Expiration date\nMonth:\n";
+            cin >> expirationDateMonth;
+        }while(expirationDateMonth < 1 || expirationDateMonth > 12);
+            
+        // Loop if year isnt valid
+        do
+        {
+            cout << "Year:\n";
+            cin >> expirationDateYear;
+        }while(expirationDateYear < 1111 || expirationDateYear > 9999);
+        fout << "Expiration Date:\n" << expirationDateMonth << "/" << expirationDateYear << endl;
 
-            fout << "Customer Name:\n" << userName << "\n";
-            Customers.back().SetCustomerName(userName);
-
-                
-            // Loop if card number is invalid
-            do
-            {
-                cout << "\nWhat is your Credit Card Number? (12 digits)" << endl;
-                cin >> creditCardNum;
-            }while(creditCardNum < 111111111111 || creditCardNum > 999999999999);
-            fout << "Credit Card Number:\n" << creditCardNum << endl;
-                
-            // Loop if month isnt valid
-            do
-            {
-                cout << "\nExpiration date\nMonth:\n";
-                cin >> expirationDateMonth;
-            }while(expirationDateMonth < 1 || expirationDateMonth > 12);
-                
-            // Loop if year isnt valid
-            do
-            {
-                cout << "\nYear:\n";
-                cin >> expirationDateYear;
-            }while(expirationDateYear < 1111 || expirationDateYear > 9999);
-            fout << "Expiration Date:\n" << expirationDateMonth << "/" << expirationDateYear << endl;
-
-            do
-            {
-                cout << "\nValidation Key:\n";
-                cin >> cardValKey; 
-            }while(cardValKey < 111 || cardValKey > 999);
-            fout << "Validation Key:\n" << cardValKey << endl;
-            fout << "Movies Loaned:" << endl << endl;
-            cout << "\nYour Customer ID is: " << randNum << endl;
-            fout.close();
-            fin.close();
-        }
+        do
+        {
+            cout << "Validation Key:\n";
+            cin >> cardValKey; 
+        }while(cardValKey < 111 || cardValKey > 999);
+        fout << "Validation Key:\n" << cardValKey << endl;
+        fout << "Movies Loaned:" << endl << endl;
+        cout << "Your Customer ID is: " << randNum << endl;
+        fout.close();
+        fin.close();
     }
 }
 // void editCustomer(int customerID)
@@ -228,4 +211,37 @@ void CustomerCollection::printCollectionEntries()
 int CustomerCollection::getCustomersSize()
 {
     return Customers.size();
+}
+
+void CustomerCollection::saveDataBase()
+{
+    ofstream fout;
+
+    fout.open("GreenBox-Data.txt", ios::trunc);
+    
+    if (Customers.size() != 0){
+        for(int i = 0; i < Customers.size(); i++)
+        {
+            // cout << "Customer ID:\n" << Customers[i].GetCustomerID() << endl;
+            // cout << "Customer Name:\n" << Customers[i].GetCustomerName() << endl;
+            // cout << "Credit Card Number:\n" << Customers[i].GetCreditCardNum() << endl;
+            // cout << "Expiration Date:\n" << Customers[i].GetCreditCardExpDate() << endl;
+            // cout << "Validation Key:\n" << Customers[i].GetCreditCardValKey() << endl;
+            // cout << "Movies Loaned:\n";
+            fout << "Customer ID:\n" << Customers[i].GetCustomerID() << endl;
+            fout << "Customer Name:\n" << Customers[i].GetCustomerName() << endl;
+            fout << "Credit Card Number:\n" << Customers[i].GetCreditCardNum() << endl;
+            fout << "Expiration Date:\n" << Customers[i].GetCreditCardExpDate() << endl;
+            fout << "Validation Key:\n" << Customers[i].GetCreditCardValKey() << endl;
+            fout << "Movies Loaned:\n";
+            if (Customers[i].GetActiveMovieCount() != 0)
+            {
+                for (int i = 0; i < Customers[i].GetActiveMovieCount(); i++)
+                {
+                    fout << "Movie Place Holder\n";
+                }
+            }
+            fout << endl;
+        }
+    }
 }

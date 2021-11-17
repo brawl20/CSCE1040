@@ -77,37 +77,45 @@ void Menu(CustomerCollection &customerDatabase)
         case 1:
             cout << "\nPlease enter your Customer ID:\n";
             cin >> customerID;
-            customerDatabase.loadDataBase();
             if (customerDatabase.getCustomersSize() != 0){
                 if (checkIDNumber(customerDatabase, customerID, customerIndex))
                 {
                     //Print a menu for a user that is in the system
                     Customer tempCustomer = customerDatabase.findCustomer(customerIndex);
                     cout << "\nWelcome back " << tempCustomer.GetCustomerName() << "!\n";
-                    cout << "What would you like to do?\n";
-                    cout << "1) Loan a movie\n2) Edit information\n3) View all current loans\n4) Delete account\nChoice:";
-                    cin >> userChoice;
-                    switch (userChoice)
+                    bool loop = false;
+                    do
                     {
-                        case 1:
+                        loop = false;
+                        cout << "What would you like to do?\n";
+                        cout << "1) Loan a movie\n2) Edit information\n3) View all current loans\n4) Delete account\nChoice:";
+                        cin >> userChoice;
+                        switch (userChoice)
+                        {
+                            case 1:
+                                cout << "No\n";
+                            break;
+
+                            case 2:
+                                cout << "No\n";
+                            break;
+
+                            case 3:
+                                cout << "No\n";
+                            break;
+
+                            case 4:
+                                customerDatabase.deleteCustomer(customerIndex);
+                                //cout << (customerDatabase.findCustomer(customerIndex)).GetCustomerName() << endl;
+                            break;
+
                         
-                        break;
-
-                        case 2:
-                        break;
-
-                        case 3:
-                        break;
-
-                        case 4:
-                            customerDatabase.deleteCustomer(customerIndex);
-                            //cout << (customerDatabase.findCustomer(customerIndex)).GetCustomerName() << endl;
-                        break;
-
-                    
-                        default:
-                        break;
-                    }
+                            default:
+                                loop = true;
+                                cout << "\nYou made an invalid selection. Please try again.\n\n";
+                            break;
+                        }
+                    }while(loop);
                 }
                 else
                 {
@@ -133,7 +141,8 @@ void Menu(CustomerCollection &customerDatabase)
 int main()
 {   
     CustomerCollection customerDatabase;
+    customerDatabase.loadDataBase();
     Menu(customerDatabase);
-    //customerDatabase.printCollectionEntries();
+    customerDatabase.saveDataBase();
     return 0;
 }

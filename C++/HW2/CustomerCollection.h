@@ -28,6 +28,7 @@ class CustomerCollection
         void moviesLoaned(); // Print a list of all Loans for a Particular Customer
         void printAllLoans(); // Print a list of all Active (future and current) Loans, all completed Loans and all Overdue or lost Loans
         int getCustomersSize(); //Get size of cutomers vector
+        void saveDataBase();
     private:
         vector<Customer> Customers;
 };
