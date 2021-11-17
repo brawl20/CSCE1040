@@ -57,8 +57,8 @@ void Menu(CustomerCollection &customerDatabase)
 
     // Body
     cout << "*********Welcome to GreenBox!*********" << endl;
-    cout << "Menu:" << endl;
-    cout << "1) Returning Customer\n2) New Customer\n3) Exit\n";
+    cout << "\nMenu:" << endl;
+    cout << "1) Returning Customer\n2) New Customer\n3) Exit\nChoice:";
 
     
     cin >> userChoice;
@@ -68,30 +68,44 @@ void Menu(CustomerCollection &customerDatabase)
         switch (userChoice)
         {
         case 1:
-            cout << "Please enter your Customer ID:\n";
+            cout << "\nPlease enter your Customer ID:\n";
             cin >> customerID;
             customerDatabase.loadDataBase();
-            if (checkIDNumber(customerDatabase, customerID, customerIndex))
-            {
-                //Print a menu for a user that is in the system
-                Customer tempCustomer = customerDatabase.findCustomer(customerIndex);
-                cout << "Welcome back " << tempCustomer.GetCustomerName() << "!\n";
-                cout << "What would you like to do?\n";
-                cout << "1) Loan a movie\n2) Edit information\n3) View all current loans\n4) Delete account\n";
-                cin >> userChoice;
-                switch (userChoice)
+            if (customerDatabase.getCustomersSize() != 0){
+                if (checkIDNumber(customerDatabase, customerID, customerIndex))
                 {
-                case 1:
+                    //Print a menu for a user that is in the system
+                    Customer tempCustomer = customerDatabase.findCustomer(customerIndex);
+                    cout << "\nWelcome back " << tempCustomer.GetCustomerName() << "!\n";
+                    cout << "What would you like to do?\n";
+                    cout << "1) Loan a movie\n2) Edit information\n3) View all current loans\n4) Delete account\nChoice:";
+                    cin >> userChoice;
+                    switch (userChoice)
+                    {
+                        case 1:
+                        
+                        break;
+
+                        case 2:
+                        break;
+
+                        case 3:
+                        break;
+
+                        case 4:
+                            customerDatabase.deleteCustomer(customerIndex);
+                            //cout << (customerDatabase.findCustomer(customerIndex)).GetCustomerName() << endl;
+                        break;
+
                     
-                    break;
-                
-                default:
-                    break;
+                        default:
+                        break;
+                    }
                 }
-            }
-            else
-            {
-                cout << "There does not seem to be a customer with that ID number in the system. Please register or try again.\n";
+                else
+                {
+                    cout << "\nThere does not seem to be a customer with that ID number in the system. Please register or try again.\n";
+                }
             }
             break;
         case 2:
@@ -103,8 +117,8 @@ void Menu(CustomerCollection &customerDatabase)
             cout << "Sorry, the choice you made was invalid. Please try again.\n";
             break;
         }
-        cout << "Menu:" << endl;
-        cout << "1) Returning Customer\n2) New Customer\n3) Exit\n";
+        cout << "\nMenu:" << endl;
+        cout << "1) Returning Customer\n2) New Customer\n3) Exit\nChoice:";
         cin >> userChoice;
     }
 }

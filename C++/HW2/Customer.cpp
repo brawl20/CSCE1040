@@ -14,10 +14,6 @@ using namespace std;
         customerName = "No Name";
         creditCardExpDate = "Nothing";
         creditCardValKey = 000;
-        for(int i = 0; i < 2; i++)
-        {
-            activeMovies.push_back(Movie());
-        }
 
     }
     

@@ -37,12 +37,12 @@ void CustomerCollection::loadDataBase()
                 getline(fin,tempHolder);
                 Customers.back().SetCustomerName(tempHolder);
             }
+            getline(fin,tempHolder);
             if (tempHolder == "Credit Card Number:")
             {
                 long long unsigned int cardNumber = 0;
                 getline(fin,tempHolder);
                 cardNumber = stoll(tempHolder, nullptr, 10);
-                cout << cardNumber << endl;
                 Customers.back().SetCreditCardNum(cardNumber);
             }
             getline(fin,tempHolder);
@@ -132,7 +132,7 @@ void CustomerCollection::addCustomer()
 
     loadDataBase();
 
-    cout << "Please enter your name:\n";
+    cout << "\nPlease enter your name:\n";
     getline(cin,userName);
     fout.open("GreenBox-Data.txt", ios::app);
     fin.open("GreenBox-Data.txt"); 
@@ -142,7 +142,7 @@ void CustomerCollection::addCustomer()
         if (tempHolder == userName)
         {
             inSystem = true;
-            cout << "This customer is already in our system.\n";
+            cout << "\nThis customer is already in our system.\n";
             fin.close();
             fout.close();
         }
@@ -162,7 +162,7 @@ void CustomerCollection::addCustomer()
             // Loop if card number is invalid
             do
             {
-                cout << "What is your Credit Card Number? (12 digits)" << endl;
+                cout << "\nWhat is your Credit Card Number? (12 digits)" << endl;
                 cin >> creditCardNum;
             }while(creditCardNum < 111111111111 || creditCardNum > 999999999999);
             fout << "Credit Card Number:\n" << creditCardNum << endl;
@@ -170,26 +170,26 @@ void CustomerCollection::addCustomer()
             // Loop if month isnt valid
             do
             {
-                cout << "Expiration date\nMonth:\n";
+                cout << "\nExpiration date\nMonth:\n";
                 cin >> expirationDateMonth;
             }while(expirationDateMonth < 1 || expirationDateMonth > 12);
                 
             // Loop if year isnt valid
             do
             {
-                cout << "Year:\n";
+                cout << "\nYear:\n";
                 cin >> expirationDateYear;
             }while(expirationDateYear < 1111 || expirationDateYear > 9999);
             fout << "Expiration Date:\n" << expirationDateMonth << "/" << expirationDateYear << endl;
 
             do
             {
-                cout << "Validation Key:\n";
+                cout << "\nValidation Key:\n";
                 cin >> cardValKey; 
             }while(cardValKey < 111 || cardValKey > 999);
             fout << "Validation Key:\n" << cardValKey << endl;
             fout << "Movies Loaned:" << endl << endl;
-            cout << "Your Customer ID is: " << randNum << endl;
+            cout << "\nYour Customer ID is: " << randNum << endl;
             fout.close();
             fin.close();
         }
@@ -199,7 +199,10 @@ void CustomerCollection::addCustomer()
 // {
 
 // }
-//void deleteCustomer(); 
+void CustomerCollection::deleteCustomer(int customerIndex)
+{
+    Customers.erase(Customers.begin() + (customerIndex));
+} 
 Customer CustomerCollection::findCustomer(int customerIndex)
 {
     return Customers[customerIndex];
@@ -215,3 +218,7 @@ void CustomerCollection::printCollectionEntries()
 }
 //void moviesLoaned(); 
 //void printAllLoans();
+int CustomerCollection::getCustomersSize()
+{
+    return Customers.size();
+}
