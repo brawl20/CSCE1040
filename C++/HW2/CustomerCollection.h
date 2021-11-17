@@ -1,6 +1,13 @@
 #ifndef CUSTOMERCOLLECTION_H
 #define CUSTOMERCOLLECTION_H
 
+/*
+	Author:			Micheal Landsbaum (MichealLandsbaum@my.unt.edu)
+	Date:			11/16/2021
+	Course:         CSCE1040
+	Assignment:     Homework 3
+*/
+
 #include "Customer.h"
 #include <string>
 #include <iostream>
